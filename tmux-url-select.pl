@@ -10,7 +10,9 @@ use warnings;
 ### config
 
 use constant COMMAND => 'xdg-open %s';
-use constant YANK_COMMAND => 'echo %s | xclip -i';
+use constant YANK_COMMAND => ($ENV{XDG_SESSION_TYPE} eq 'wayland')
+	? 'echo -n %s | wl-copy'
+	: 'echo -n %s | xclip -i';
 
 use constant SHOW_STATUS_BAR => 1;
 use constant VERBOSE_MESSAGES => 0;
